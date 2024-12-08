@@ -1,38 +1,57 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+This Movie Score program shows my learning of SQL and relational databases.
 
-{Provide a description of the software that you wrote and how it integrates with a SQL Relational Database. Describe how to use your program.}
+There is a menu that allows a user to insert a movie's data into the movies.db database file, update a movie's data, delete a movie, display all movie data, get the average movie score, and see the number of movies in the database.
 
-{Describe your purpose for writing this software.}
+I have some experience with SQL and databases but I want to learn more and eventually gain experience with noSQL. 
 
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running, a walkthrough of the code, and a view of how created the Relational Database.}
 
 [Software Demo Video](http://youtube.link.goes.here)
 
 # Relational Database
 
-{Describe the relational database you are using.}
+I used SQLite with Python to make a database and then insert, modify, delete, and query data from the database.
 
-{Describe the structure (tables) of the relational database that you created.}
+Currently there is just one table with columns for title, score, release year, etc.
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
+Visual Studio Code and SQLite3.
 
-{Describe the programming language that you used and any libraries.}
+Python and SQL.
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
-- [Web Site Name](http://url.link.goes.here)https://www.w3schools.com/sql/
-- [Web Site Name](http://url.link.goes.here)https://www.sqlitetutorial.net/sqlite-aggregate-functions/
+- [W3Schools SQL Tutorial](https://www.w3schools.com/sql/)
+- [SQLite Tutorial](https://www.sqlitetutorial.net/sqlite-aggregate-functions/)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
+- Add more error handling for user input
 
-- Item 1
-- Item 2
-- Item 3
+- Add feature for the user to filter movies by release year, actors, etc.
+
+- Add the following to the database:
+### Movies Table
+- id (INTEGER, PRIMARY KEY, AUTOINCREMENT)
+- title (TEXT, NOT NULL)
+- director (TEXT)
+- year (INTEGER)
+- genre (TEXT)
+- rating (REAL)
+
+Reviews Table
+- id (INTEGER, PRIMARY KEY, AUTOINCREMENT)
+- movie_id (INTEGER, FOREIGN KEY REFERENCES Movies(id))
+- review (TEXT)
+- score (REAL)
+
+Actors Table
+- id (INTEGER, PRIMARY KEY, AUTOINCREMENT)
+- name (TEXT, NOT NULL)
+- birthdate (TEXT)
+
+Movie_Actors Table (Many-to-Many relationship between Movies and Actors)
+- movie_id (INTEGER, FOREIGN KEY REFERENCES Movies(id))
+- actor_id (INTEGER, FOREIGN KEY REFERENCES Actors(id))
