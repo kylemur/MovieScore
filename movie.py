@@ -38,16 +38,16 @@ def is_title(conn, title):
 
 def update_movie(conn, title, score=None, runtime=None, release_year=None, rated=None, genre=None, director=None, actors=None):
     sql = ''' UPDATE movies
-              SET score = ?
-              SET runtime = ?
-              SET release_year = ?
-              SET rated = ?
-              SET genre = ?
-              SET director = ?
-              SET actors = ?
+              SET score = ?,
+                  runtime = ?,
+                  release_year = ?,
+                  rated = ?,
+                  genre = ?,
+                  director = ?,
+                  actors = ?
               WHERE title = ?'''
     cur = conn.cursor()
-    cur.execute(sql, (title, score, runtime, release_year, rated, genre, director, actors))
+    cur.execute(sql, (score, runtime, release_year, rated, genre, director, actors, title))
     conn.commit()
 
 def delete_movie(conn, title):
