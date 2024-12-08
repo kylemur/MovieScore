@@ -1,4 +1,3 @@
-
 import sqlite3
 
 def create_connection():
@@ -25,7 +24,7 @@ def create_table(conn):
         print(e)
 
 def insert_movie(conn, title, score, runtime=None, release_year=None, rated=None, genre=None, director=None, actors=None):
-    sql = ''' INSERT INTO movies(title, runtime, release_year, rated, genre, director, actors, score)
+    sql = ''' INSERT INTO movies(title, score, runtime, release_year, rated, genre, director, actors)
               VALUES(?, ?, ?, ?, ?, ?, ?, ?) '''
     cur = conn.cursor()
     cur.execute(sql, (title, score, runtime, release_year, rated, genre, director, actors))
@@ -51,10 +50,10 @@ def update_movie(conn, title, score=None, runtime=None, release_year=None, rated
     cur.execute(sql, (title, score, runtime, release_year, rated, genre, director, actors))
     conn.commit()
 
-def delete_movie(conn, movie_id):
+def delete_movie(conn, title):
     sql = 'DELETE FROM movies WHERE title=?'
     cur = conn.cursor()
-    cur.execute(sql, (movie_id,))
+    cur.execute(sql, (title,))
     conn.commit()
 
 def display_all_movies(conn):
@@ -116,22 +115,27 @@ def main():
             
             elif option == 2: # Update a movie
                 m_title = input('Enter movie title: ')
-
-                m_score = int(input('Enter movie score: '))
-                m_runtime = int(input('Enter movie runtime: '))
-                m_release_year = int(input('Enter movie release year: '))
-                m_rated = input('What is the movie rated: ')
-                m_genre = input('Enter movie genre: ')
-                m_director = input('Enter movie director: ')
-                m_actors = input('Enter movie actors: ')
-                update_movie(conn, m_title, m_score, m_runtime, m_release_year, m_rated, m_genre, m_director, m_actors)
+                if is_title(conn, m_title):
+                    m_score = int(input('Enter movie score: '))
+                    m_runtime = int(input('Enter movie runtime: '))
+                    m_release_year = int(input('Enter movie release year: '))
+                    m_rated = input('What is the movie rated: ')
+                    m_genre = input('Enter movie genre: ')
+                    m_director = input('Enter movie director: ')
+                    m_actors = input('Enter movie actors: ')
+                    update_movie(conn, m_title, m_score, m_runtime, m_release_year, m_rated, m_genre, m_director, m_actors)
+                else:
+                    print('Movie not found.')
             
             elif option == 3: # Delete a movie
-                
-                delete_movie(conn, 2)
+                m_title = input('Enter movie title: ')
+                if is_title(conn, m_title):
+                    delete_movie(conn, m_title)
+                    print(f'{m_title} deleted.')
+                else:
+                    print('Movie not found.')
             
             elif option == 4: # Display all movies
-                
                 display_all_movies(conn)
             
             elif option == 5: # Get average score
